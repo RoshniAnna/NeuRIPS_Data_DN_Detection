@@ -17,4 +17,4 @@ New XYCurve.MyEff npts=4  xarray=[.1  .2  .4  1.0]  yarray=[.86  .9  .93  .97]
 
 
 !Temperature curve
-!New Tshape.MyTemp npts=24 interval=1 temp=[25, 25, 25, 25, 25, 25, 25, 25, 35, 40, 45, 50, 60, 60, 55, 40, 35,  30,  25, 25, 25, 25, 25, 25]
+New Tshape.MyTemp npts=24 interval=1 temp=[25, 25, 25, 25, 25, 25, 25, 25, 35, 40, 45, 50,  60, 60,  55, 40,  35,  30,  25, 25, 25, 25, 25, 25]
