@@ -145,7 +145,8 @@ def inject_pv_attack(Ckt_obj, PVs, attacked_PVs, start_idx, end_idx, attack_type
                 branch_label = G_original[u][v]['Label']
                 branch_device = G_original[u][v]['Device']
                 branch_elem = f"{branch_device}.{branch_label}"
-                branchflow = Branch(Ckt_obj,branch_elem).flow
+                branch_pflow = Branch(Ckt_obj,branch_elem).flow
+                branchflow = np.sum(branch_pflow)
                 flow_branch_Sc[(u,v)].append(branchflow)                    
 
             t = Ckt_obj.dss.Solution.DblHour()

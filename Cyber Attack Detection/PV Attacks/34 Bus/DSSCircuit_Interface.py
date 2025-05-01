@@ -83,6 +83,7 @@ class Branch:
         #     raise ValueError(f"Unsupported branch type: {branch_type}")
 
     def _extract_line_impedance(self):
+        self.dss.Lines.Name(self.branch_fullname.split('.')[1])
         Rmat = np.array(self.dss.Lines.RMatrix()) * self.dss.Lines.Length()
         Xmat = np.array(self.dss.Lines.XMatrix()) * self.dss.Lines.Length()
         node_seq = self.dss.CktElement.NodeOrder()[:self.nphases]
@@ -116,6 +117,7 @@ class Branch:
         return R_eq, X_eq
 
     def _extract_transformer_impedance(self):
+        self.dss.Transformers.Name(self.branch_fullname.split('.')[1])
         X_per = self.dss.Transformers.Xhl()
         R_per = self.dss.Transformers.R()
         kva_trfr = self.dss.Transformers.kVA()
