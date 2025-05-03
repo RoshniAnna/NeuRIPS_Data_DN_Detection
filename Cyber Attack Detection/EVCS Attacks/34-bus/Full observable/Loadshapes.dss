@@ -1,6 +1,0 @@
-New LoadShape.loadshape_multload interval=0 npts=24 csvfile=[Loadshape_multload.csv]
-!interval=0 for OpenDSS to perform interpolation
-
-
-
-
