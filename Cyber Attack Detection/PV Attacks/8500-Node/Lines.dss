@@ -292,7 +292,7 @@ New Line.LN6290205-1         bus1=M1047484            bus2=L3010560            l
 New Line.LN6350547-1         bus1=L3254219.3          bus2=L3254220.3          length=0.064169262 units=km Linecode=1PH-xx2_ACSR2_ACSR                
 New Line.LN6229800-1         bus1=M1026648.1          bus2=M1026647.1          length=0.052222014 units=km Linecode=1PH-4_ACSRxx4_ACSR                
 New Line.LN6138609-1         bus1=M1089112.3          bus2=L2691951.3          length=0.06504075  units=km Linecode=1PH-xx4_WPAL4_WPAL                
-New Line.WD701_48332_sw      bus1=228-1048090-1_INT.2 bus2=193-51796.2         switch=y           R1=1     1   1        1            Length=0.001 phases=1 enabled=False 
+!New Line.WD701_48332_sw      bus1=228-1048090-1_INT.2 bus2=193-51796.2         switch=y           R1=1     1   1        1            Length=0.001 phases=1 enabled=False 
 New Line.LN81048090-1        bus1=M1108433.2          bus2=228-1048090-1_INT.2 length=0.13353714  units=km linecode=1P_1/0_AXNJ_DB                          
 New Line.LN5683828-1         bus1=M1026327.2          bus2=L2841636.2          length=0.10472867  units=km Linecode=1PH-x4_ACSRx4_ACSR                
 New Line.LN8979256-1         bus1=M1089183            bus2=L2990826            length=0.052078294 units=km linecode=3P_1/0_AXNJ_DB                          
@@ -519,7 +519,7 @@ New Line.LN5651995-1         bus1=M1125959.3          bus2=M1125974.3          l
 New Line.LN5804793-1         bus1=M1069192.1          bus2=M1069191.1          length=0.055093178 units=km Linecode=1PH-4_ACSRxx4_ACSR                
 New Line.LN5894220-2         bus1=M1108259.2          bus2=M1108258.2          length=0.046227845 units=km Linecode=1PH-x4_ACSRx4_ACSR                
 New Line.LN6413711-1         bus1=P829976.1           bus2=L2955078.1          length=0.054801402 units=km Linecode=1PH-4_ACSRxx4_ACSR                
-New Line.V7995_48332_sw      bus1=D5837361-8_INT.3    bus2=E182745.3          phases=1 switch=y           R1=1     1    1        1            Length=0.001 phases=1 enabled=False 
+!New Line.V7995_48332_sw      bus1=D5837361-8_INT.3    bus2=E182745.3          phases=1 switch=y           R1=1     1    1        1            Length=0.001 phases=1 enabled=False 
 New Line.LN5837361-8         bus1=N1147867.3          bus2=D5837361-8_INT.3    length=0.00591651  units=km Linecode=1PH-xx4_ACSR4_ACSR                
 New Line.LN6506316-3         bus1=L2991901.2          bus2=M3037537.2          length=0.46634392  units=km Linecode=1PH-x2_ACSRx2_ACSR                
 New Line.LN5652982-1         bus1=M1026792.1          bus2=L2821010.1          length=0.17284247  units=km Linecode=1PH-4_ACSRxx4_ACSR                
@@ -1423,7 +1423,7 @@ New Line.LN6047559-2         bus1=M1089155.3          bus2=M3037540.3          l
 New Line.LN6350529-1         bus1=M1089199            bus2=M1089197            length=0.081255207 units=km Linecode=3PH_H-397_ACSR397_ACSR397_ACSR2/0_ACSR  
 New Line.LN5714048-1         bus1=L2673315.1          bus2=M1089148.1          length=0.12446665  units=km Linecode=1PH-4_ACSRxx4_ACSR                
 New Line.LN81354562-7        bus1=N1140526.3          bus2=M3763620.3          length=0.48658888  units=km linecode=1P_1/0_AXNJ_DB                          
-New Line.WG127_48332_sw      bus1=228-961799-3_INT.3  bus2=193-46661.3       phases=1  switch=y           R1=1     1   1        1            Length=0.001 phases=1 enabled=False 
+!New Line.WG127_48332_sw      bus1=228-961799-3_INT.3  bus2=193-46661.3       phases=1  switch=y           R1=1     1   1        1            Length=0.001 phases=1 enabled=False 
 New Line.LN8961799-3         bus1=L2729207.3          bus2=228-961799-3_INT.3  length=0.012192846 units=km linecode=1P_1/0_AXNJ_DB                          
 New Line.LN6351510-1         bus1=M1142821            bus2=L2711226            length=0.001633431 units=km Linecode=3PH_H-4_ACSR4_ACSR4_ACSR4_ACSR          
 New Line.LN5683843-1         bus1=M1026826.1          bus2=M1026820.1          length=0.060462688 units=km Linecode=1PH-2_ACSRxx2_ACSR                
@@ -2224,7 +2224,7 @@ New Line.LN5894237-1         bus1=M1009807.3          bus2=L2673323.3          l
 New Line.LN5804796-1         bus1=L2973152.2          bus2=M1047777.2          length=0.017311238 units=km Linecode=1PH-x4_ACSRx4_ACSR                
 New Line.LN5965099-8         bus1=M4113347            bus2=N1138607            length=0.023221022 units=km Linecode=3PH_H-2/0_ACSR2/0_ACSR2/0_ACSR2_ACSR    
 New Line.LN5958701-1         bus1=M1047483.3          bus2=P827505.3           length=0.007828481 units=km Linecode=1PH-xx4_ACSR4_ACSR                
-New Line.WF856_48332_sw      bus1=228-1353934-4_INT.3 bus2=193-103041.3        switch=y           R1=1     1   1        1            Length=0.001 phases=1 enabled=False 
+!New Line.WF856_48332_sw      bus1=228-1353934-4_INT.3 bus2=193-103041.3        switch=y           R1=1     1   1        1            Length=0.001 phases=1 enabled=False 
 New Line.LN81353934-4        bus1=L3645812.3          bus2=228-1353934-4_INT.3 length=0.29687639  units=km linecode=1P_1/0_AXNJ_DB                          
 New Line.LN5865268-2         bus1=M1069457            bus2=N1139260            length=0.006837993 units=km Linecode=3PH_H-2/0_ACSR2/0_ACSR2/0_ACSR2_ACSR    
 New Line.LN5803984-1         bus1=L3254214.2          bus2=L3214112.2          length=0.083487143 units=km Linecode=1PH-x2_ACSRx2_ACSR                
@@ -2459,7 +2459,7 @@ New Line.LN6079950-1         bus1=P827537.1           bus2=L3122827.1          l
 New Line.LN5563853-1         bus1=M1108532            bus2=M1108535            length=0.09298428  units=km Linecode=3PH_H-397_ACSR397_ACSR397_ACSR2/0_ACSR  
 New Line.LN6991377-9         bus1=P1164481.1          bus2=L3729297.1          length=0.053070685 units=km Linecode=1PH-2_ACSRxx2_ACSR                
 New Line.LN6262266-12        bus1=M1047303            bus2=N1145954            length=0.004178292 units=km Linecode=3PH_H-4_ACSR4_ACSR4_ACSR4_ACSR          
-New Line.WF586_48332_sw      bus1=228-979371-2_INT.3  bus2=193-48013.3         switch=y           R1=1     1        1        1            Length=0.001 phases=1 enabled=False 
+!New Line.WF586_48332_sw      bus1=228-979371-2_INT.3  bus2=193-48013.3         switch=y           R1=1     1        1        1            Length=0.001 phases=1 enabled=False 
 New Line.LN8979371-2         bus1=L2690868.3          bus2=228-979371-2_INT.3  length=0.01146058  units=km linecode=1P_1/0_AXNJ_DB                          
 New Line.LN5742828-1         bus1=M1209817            bus2=L2801909            length=0.025252282 units=km Linecode=3PH_H-397_ACSR397_ACSR397_ACSR397_ACSR  
 New Line.LN6047595-3         bus1=N1136356            bus2=M1069549            length=0.025808669 units=km Linecode=3PH_H-397_ACSR397_ACSR397_ACSR2/0_ACSR  
