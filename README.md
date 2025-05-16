@@ -1,4 +1,4 @@
-# NeurIPS_Data_DN_Detection
+# PowerBench Dataset
 
 This repository contains datasets for **line failures** and **cyber attacks** in **power distribution networks**, developed for research purposes and suitable for benchmarking anomaly detection or fault localization models.
 
