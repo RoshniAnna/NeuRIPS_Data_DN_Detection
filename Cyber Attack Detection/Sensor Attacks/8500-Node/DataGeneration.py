@@ -13,12 +13,12 @@ import pickle
 
 # Initialize Circuit
 FolderName = os.path.dirname(os.path.realpath("__file__"))
-DSSfile = r""+ FolderName+ "\ieee34Mod1.dss"
+DSSfile = r""+ FolderName+ "\Master.dss"
 Ckt_obj = CircuitSetup(DSSfile)  #creating a DSS object instance
 
 #-- Equivalent Graph
 G_original =  build_graph(Ckt_obj)
-nx.readwrite.gml.write_gml(G_original,"34busEx.gml") #Graph undirected with edge features and node features which are constant
+nx.readwrite.gml.write_gml(G_original,"8500NodeEx.gml") #Graph undirected with edge features and node features which are constant
 node_list=list(G_original.nodes())
 edge_list=list(G_original.edges())
 
@@ -90,8 +90,8 @@ def inject_voltage_attack(BusVoltages, start_idx, end_idx, attack_mult):
 Scenarios  = []
 scid = 0
 ### Scenario generation
-NSc_normal = 1000 # parameter indicating no.of scenarios for each
-NSc_attack = 1000
+NSc_normal = 5 # parameter indicating no.of scenarios for each
+NSc_attack = 5
 
 # Normal case- normal operation
 for idx in range(NSc_normal//2):
@@ -186,5 +186,5 @@ for idx in range(NSc_attack//2):
 random.shuffle(Scenarios)
 
 # Write list
-with open(FolderName+ './SensorAttacks_34_correct.pkl', 'wb') as file:
+with open(FolderName+ '/SensorAttacks_8500.pkl', 'wb') as file:
     pickle.dump(Scenarios, file)

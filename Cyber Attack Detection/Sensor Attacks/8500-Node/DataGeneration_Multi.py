@@ -8,17 +8,36 @@ from GraphBuild import *
 import matplotlib.pyplot as plt
 import random
 import pickle
+import uuid
+import datetime
+
+# === SLURM array support ===
+job_index = int(os.environ.get('SLURM_ARRAY_TASK_ID', 0))
+total_jobs = 4  # Match with --array=0-3 in SLURM
+
+NSc_normal = 4000  # total normal scenarios
+NSc_attack = 4000  # total attack scenarios
+
+sc_per_job = (NSc_normal + NSc_attack) // total_jobs
+sc_normal_per_job = NSc_normal // total_jobs // 2  # each split to 2 types
+sc_attack_per_job = NSc_attack // total_jobs // 2  # each split to 2 types
+
+run_id = uuid.uuid4().hex[:8]
+timestamp = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
+
 
 ### Building circuit
 
 # Initialize Circuit
 FolderName = os.path.dirname(os.path.realpath("__file__"))
-DSSfile = r""+ FolderName+ "\ieee34Mod1.dss"
-Ckt_obj = CircuitSetup(DSSfile)  #creating a DSS object instance
+DSSfile = os.path.join(FolderName, "Master.dss")
+output_dir = os.path.join(FolderName, "results")
+os.makedirs(output_dir, exist_ok=True)
 
+Ckt_obj = CircuitSetup(DSSfile)  #creating a DSS object instance
 #-- Equivalent Graph
 G_original =  build_graph(Ckt_obj)
-nx.readwrite.gml.write_gml(G_original,"34busEx.gml") #Graph undirected with edge features and node features which are constant
+nx.readwrite.gml.write_gml(G_original,"8500NodeEx.gml") #Graph undirected with edge features and node features which are constant
 node_list=list(G_original.nodes())
 edge_list=list(G_original.edges())
 
@@ -89,12 +108,8 @@ def inject_voltage_attack(BusVoltages, start_idx, end_idx, attack_mult):
 
 Scenarios  = []
 scid = 0
-### Scenario generation
-NSc_normal = 1000 # parameter indicating no.of scenarios for each
-NSc_attack = 1000
-
 # Normal case- normal operation
-for idx in range(NSc_normal//2):
+for _ in range(sc_normal_per_job):
     print(scid)
     # Varying Load shapes
     loadshape_day = random.choice(LoadShapes)
@@ -103,7 +118,7 @@ for idx in range(NSc_normal//2):
     scid = scid + 1
     
 # Normal case - over or underloading due to unforseen events
-for idx in range(NSc_normal//2):
+for _ in range(sc_normal_per_job):
     print(scid)
     # Varying Load shapes
     loadshape_day = random.choice(LoadShapes)
@@ -131,7 +146,7 @@ for idx in range(NSc_normal//2):
     
 
 # Undervoltage attack at sensor(s)
-for idx in range(NSc_attack//2):
+for _ in range(sc_attack_per_job):
     print(scid)
     # Varying Load shapes
     loadshape_day = random.choice(LoadShapes)
@@ -157,7 +172,7 @@ for idx in range(NSc_attack//2):
     scid = scid + 1
         
 # Overvoltage attack on sensor(s)
-for idx in range(NSc_attack//2):
+for _ in range(sc_attack_per_job):
     print(scid)
     # Varying Load shapes
     loadshape_day = random.choice(LoadShapes)
@@ -185,6 +200,8 @@ for idx in range(NSc_attack//2):
 # Shuffle list    
 random.shuffle(Scenarios)
 
-# Write list
-with open(FolderName+ './SensorAttacks_34_correct.pkl', 'wb') as file:
-    pickle.dump(Scenarios, file)
+# --- Save Output ---
+outfile = os.path.join(output_dir, f"{timestamp}_{run_id}_SensorAttacks_8500_job{job_index}.pkl")
+with open(outfile, 'wb') as f:
+    pickle.dump(Scenarios, f)
+
