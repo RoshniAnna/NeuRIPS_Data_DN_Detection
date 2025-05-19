@@ -83,7 +83,7 @@ def main():
     #device = torch.device(f'cuda:{args.device}' if torch.cuda.is_available() else 'cpu')
     #print(f"Using device: {device}")
 
-    for bus_name in ['34bus','123bus']:
+    for bus_name in ['34bus','123bus', '8500bus']:
         print(f"\n\n====== Running for dataset: {bus_name} ====== {args.data_type}")
 
         G, node_voltage, branch_flow, Class_labels = load_dataset_localization(args.data_type, bus_name)
