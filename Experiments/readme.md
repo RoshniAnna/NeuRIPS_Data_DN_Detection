@@ -28,6 +28,7 @@ Please make sure the datasets are organized under the following structure before
 datasets/
 ├── EVCSAttacks/
 │ ├── 123bus/
+      └── 123busEx.gml, EVCSAttacks_123bus.pkl
 │ ├── 34bus/
 │ └── 8500bus/
 ├── PVAttacks/
@@ -48,4 +49,5 @@ datasets/
 Example:
 
 ```bash
-python train_attack_detection.py --dataset datasets/EVCSAttacks/123bus/
+
+prun python train_location_acc.py --data_type "PVAttacks"
