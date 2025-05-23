@@ -12,7 +12,7 @@ input_dir = 'results'
 output_dir = 'results'
 os.makedirs(output_dir, exist_ok=True)
 
-job_ids = [1, 2, 3]
+job_ids = [0, 1, 2, 3]
 
 for job_id in job_ids:
     merged_scenarios = []

@@ -34,7 +34,7 @@ Each network-specific folder (e.g., `34-bus`, `123-bus`, `8500-node`) includes a
 - **`GraphBuild.py`** – Contains functions to construct a graph representation of the network using base circuit information
 - **`DSSCircuit_Interface.py`** – Enables circuit-level modifications and handles I/O operations with OpenDSS
 - **`DataGeneration.py`** – Main script to simulate scenarios and generate labeled datasets
-- **`DataGeneration_multi.py`** – Parallelized or batch scenario generation (if available)
+- **`DataGeneration_Multi.py`** – Parallelized or batch scenario generation (if available)
 
 These components work together to produce realistic and reproducible datasets for machine learning tasks related to grid monitoring and security in power distribution systems.
 
@@ -50,10 +50,9 @@ python DataGeneration.py
 or
 
 ```text
-# DataGeneration_multi.py should be executed via a shell script
-# (not provided here due to system-specific configurations)
-# PostProcess_Multi.py can be used for merging output files
-# This should also be run via a shell script or batch job
+DataGeneration_multi.py should be executed via a shell script (not provided here due to system-specific configurations)
+PostProcess_Multi.py can be used for merging output files
+This should also be run via a shell script or batch job
 ```
 
 These scripts will automatically simulate the desired scenarios and store the resulting data files in the appropriate directories.
