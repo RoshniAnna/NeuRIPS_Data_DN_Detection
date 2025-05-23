@@ -50,8 +50,8 @@ python DataGeneration.py
 or
 
 ```text
-DataGeneration_multi.py should be executed via a shell script (not provided here due to system-specific configurations)
-PostProcess_Multi.py can be used for merging output files. This should also be run via a shell script or batch job
+DataGeneration_multi.py should be executed via a shell script (not provided here due to system-specific configurations).
+PostProcess_Multi.py can be used for merging output files. This should also be run via a shell script or batch job.
 ```
 
 These scripts will automatically simulate the desired scenarios and store the resulting data files in the appropriate directories.
