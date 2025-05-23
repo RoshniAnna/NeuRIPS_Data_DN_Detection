@@ -26,7 +26,7 @@ timestamp = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
 # Loading EVCS information
 mat_data = loadmat('chargerdata.mat') #Reading the charging station data
 charger_data = mat_data['chargerdata']
-
+stations_bus = 5
 
 Chargers_Select = []
 # Loop through each EV charger entry
@@ -40,7 +40,7 @@ for charger_name in charger_data.dtype.names:
     data = {'Latitude':latitude, 
             'Longitude':longitude, 
             'daily_charging_current':daily_charging_current,
-            'daily_charging_power':daily_charging_power*5,
+            'daily_charging_power':daily_charging_power* stations_bus,
             'daily_charging_voltage':daily_charging_voltage,
             'daily_time': daily_time}
     Chargers_Select.append({'name':charger_name, 'data':data})
@@ -163,9 +163,9 @@ def Powerflow_Timeseries(Ckt_obj, loadshape_day, charging_profiles):
 #------------------------------------------------------------------------------------
 
 ### Scenario generation
-total_scenarios_per_type = 20  # total per type across all jobs
+total_scenarios_per_type = 200  # total per type across all jobs
 scenarios_per_job = total_scenarios_per_type // total_jobs
-batch_size = 5
+batch_size = 50
 batch_count = 0
 Scenarios = []
 scid  = 0
@@ -182,7 +182,7 @@ def write_batch():
         Scenarios.clear()
         gc.collect()
         
-"""        
+     
 # Normal case
 for _ in range(scenarios_per_job):
     print(f"Normal case: Scenario {scid}", flush =True)
@@ -193,12 +193,17 @@ for _ in range(scenarios_per_job):
         sindx = StationsInfo[i]['indx']
         charge_P = -1*(Chargers_Select[sindx]['data']['daily_charging_power']/(StationsInfo[i]['kw']*1000)) # converting the charging power to kW, normalizing wrt to max Power and -ve (indicate charging)
         charging_profiles.append(charge_P)
-    V_node_Sc, powers_Sc, flow_branch_Sc = Powerflow_Timeseries(Ckt_obj, loadshape_day, charging_profiles)        
-    Scenarios.append({'Index':scid, 'Anomalous':'No', 'Targeted Stations': [], 'Attack Type': 'Nil','BusVoltage series':V_node_Sc,'BranchFlow series':flow_branch_Sc,'EVCS power series':powers_Sc})
-    scid = scid + 1
+    V_node_Sc, powers_Sc, flow_branch_Sc = Powerflow_Timeseries(Ckt_obj, loadshape_day, charging_profiles)
+    scid += 1
+    if V_node_Sc is None:
+      print(f"Skipping scenario {scid-1} due to simulation error.", flush=True)
+      skipped_count += 1
+      continue        
+    Scenarios.append({'Index':scid-1, 'Anomalous':'No', 'Targeted Stations': [], 'Attack Type': 'Nil','BusVoltage series':V_node_Sc,'BranchFlow series':flow_branch_Sc,'EVCS power series':powers_Sc})
+
     if len(Scenarios) >= batch_size:
         write_batch()
-"""
+
 peak_start = 9
 peak_end = 19
 
@@ -212,7 +217,7 @@ for _ in range(scenarios_per_job):
     # Select Storages(s) which are under attack
     num_attacked = random.randint(1, len(StationsInfo)) # no. of PVs under attack
     attacked_stations = random.sample(range(len(StationsInfo)), k=num_attacked) # index of attacked PVs
-    attack_mult = random.uniform(5,7)
+    attack_mult = random.uniform(1.01,1.05)
     charging_profiles = []
     for i in range(len(StationsInfo)):
         sindx = StationsInfo[i]['indx']
@@ -255,7 +260,7 @@ for _ in range(scenarios_per_job):
     # Select Storages(s) which are under attack
     num_attacked = random.randint(1, len(StationsInfo)) # no. of PVs under attack
     attacked_stations = random.sample(range(len(StationsInfo)), k=num_attacked) # index of attacked PVs
-    attack_mult = random.uniform(5,7)
+    attack_mult = random.uniform(1.01,1.05)
     time_shift = random.choice(range(1,4)) #time shift duration
     shift_choice = random.choice([0,1]) #time shift direction 0: left(-ve), 1: right(+ve)
     if shift_choice == 0:
@@ -299,7 +304,7 @@ for _ in range(scenarios_per_job):
     # Select Storages(s) which are under attack
     num_attacked = random.randint(1, len(StationsInfo)) # no. of PVs under attack
     attacked_stations = random.sample(range(len(StationsInfo)), k=num_attacked) # index of attacked PVs
-    attack_mult = random.uniform(5,7)
+    attack_mult = random.uniform(1.01,1.05)
     time_shift = random.choice(range(1,4)) #time shift duration
     shift_choice = random.choice([0,1]) #time shift direction 0: left(-ve), 1: right(+ve)
     if shift_choice == 0:
@@ -347,8 +352,8 @@ for _ in range(scenarios_per_job):
     # Select Storages(s) which are under attack
     num_attacked = random.randint(1, len(StationsInfo)) # no. of PVs under attack
     attacked_stations = random.sample(range(len(StationsInfo)), k=num_attacked) # index of attacked PVs
-    attack_mult = random.uniform(5,7)
-    attack_mult2 = random.uniform(1.01,2.5) # attack scaling factor for type 6
+    attack_mult = random.uniform(1.01,1.05)
+    attack_mult2 = random.uniform(1.01,1.02) # attack scaling factor for type 6
     time_shift = random.choice(range(1,4)) #time shift duration
     shift_choice = random.choice([0,1]) #time shift direction 0: left(-ve), 1: right(+ve)
     if shift_choice == 0:
@@ -388,5 +393,7 @@ for _ in range(scenarios_per_job):
     if len(Scenarios) >= batch_size:
         write_batch()
 
-write_batch()        
+write_batch()       
+
+print(f"No of skipped scenarios:{skipped_count}") 
 

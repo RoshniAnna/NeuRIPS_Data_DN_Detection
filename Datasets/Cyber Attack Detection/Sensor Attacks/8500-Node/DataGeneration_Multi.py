@@ -10,13 +10,15 @@ import random
 import pickle
 import uuid
 import datetime
+import gc
+import gzip
 
 # === SLURM array support ===
 job_index = int(os.environ.get('SLURM_ARRAY_TASK_ID', 0))
 total_jobs = 4  # Match with --array=0-3 in SLURM
 
-NSc_normal = 4000  # total normal scenarios
-NSc_attack = 4000  # total attack scenarios
+NSc_normal = 2000  # total normal scenarios
+NSc_attack = 2000  # total attack scenarios
 
 sc_per_job = (NSc_normal + NSc_attack) // total_jobs
 sc_normal_per_job = NSc_normal // total_jobs // 2  # each split to 2 types
@@ -108,18 +110,36 @@ def inject_voltage_attack(BusVoltages, start_idx, end_idx, attack_mult):
 
 Scenarios  = []
 scid = 0
+batch_size = 500
+batch_count = 0
+
+def write_batch():
+    global batch_count, Scenarios
+    if Scenarios:
+        part_file = os.path.join(output_dir, f"{timestamp}_{run_id}_SensorAttacks_8500_job{job_index}_part{batch_count}.pkl.gz")
+        with gzip.open(part_file, 'wb') as f:
+            pickle.dump(Scenarios, f)
+        print(f"--> Wrote batch {batch_count} with {len(Scenarios)} scenarios to {part_file}", flush=True)
+        batch_count += 1
+
+        # Clear the batch from memory and force garbage collection
+        Scenarios.clear()
+        gc.collect()
+
 # Normal case- normal operation
 for _ in range(sc_normal_per_job):
-    print(scid)
+    print(f"Normal case: Scenario {scid}", flush =True)
     # Varying Load shapes
     loadshape_day = random.choice(LoadShapes)
     V_node_Sc, flow_branch_Sc = Powerflow_Timeseries(Ckt_obj, loadshape_day)
     Scenarios.append({'Index':scid, 'Anomalous':'No', 'Targeted Buses': [], 'Attack Type': 'Nil', 'BusVoltage series':V_node_Sc,'BranchFlow series':flow_branch_Sc})
     scid = scid + 1
+    if len(Scenarios) >= batch_size:
+        write_batch()
     
 # Normal case - over or underloading due to unforseen events
 for _ in range(sc_normal_per_job):
-    print(scid)
+    print(f"Normal case: Scenario {scid}", flush =True)
     # Varying Load shapes
     loadshape_day = random.choice(LoadShapes)
     over_under_flag = random.choice([0,1])
@@ -143,11 +163,12 @@ for _ in range(sc_normal_per_job):
     V_node_Sc, flow_branch_Sc = Powerflow_Timeseries(Ckt_obj, variedloadedshape)
     Scenarios.append({'Index':scid, 'Anomalous':'No', 'Targeted Buses': [], 'Attack Type': 'Nil', 'BusVoltage series':V_node_Sc,'BranchFlow series':flow_branch_Sc})
     scid = scid + 1
-    
+    if len(Scenarios) >= batch_size:
+        write_batch()    
 
 # Undervoltage attack at sensor(s)
 for _ in range(sc_attack_per_job):
-    print(scid)
+    print(f"Undervoltage case: Scenario {scid}", flush =True)
     # Varying Load shapes
     loadshape_day = random.choice(LoadShapes)
     V_node_Sc, flow_branch_Sc = Powerflow_Timeseries(Ckt_obj, loadshape_day)
@@ -170,10 +191,12 @@ for _ in range(sc_attack_per_job):
         V_node_Sc[atk_bus] = attacked_voltages
     Scenarios.append({'Index':scid, 'Anomalous':'Yes', 'Targeted Buses': attack_buses, 'Attack Type': 'Under Voltage', 'BusVoltage series':V_node_Sc,'BranchFlow series':flow_branch_Sc})
     scid = scid + 1
-        
+    if len(Scenarios) >= batch_size:
+        write_batch()
+                
 # Overvoltage attack on sensor(s)
 for _ in range(sc_attack_per_job):
-    print(scid)
+    print(f"Overvoltage case: Scenario {scid}", flush =True)
     # Varying Load shapes
     loadshape_day = random.choice(LoadShapes)
     V_node_Sc, flow_branch_Sc = Powerflow_Timeseries(Ckt_obj, loadshape_day)
@@ -196,12 +219,9 @@ for _ in range(sc_attack_per_job):
         V_node_Sc[atk_bus] = attacked_voltages
     Scenarios.append({'Index':scid, 'Anomalous':'Yes', 'Targeted Buses': attack_buses, 'Attack Type': 'Over Voltage', 'BusVoltage series':V_node_Sc,'BranchFlow series':flow_branch_Sc})
     scid = scid + 1
-    
-# Shuffle list    
-random.shuffle(Scenarios)
-
-# --- Save Output ---
-outfile = os.path.join(output_dir, f"{timestamp}_{run_id}_SensorAttacks_8500_job{job_index}.pkl")
-with open(outfile, 'wb') as f:
-    pickle.dump(Scenarios, f)
+    if len(Scenarios) >= batch_size:
+        write_batch()
+            
+# Write any remaining scenarios
+write_batch()
 

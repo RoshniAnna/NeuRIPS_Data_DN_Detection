@@ -73,19 +73,23 @@ for i in range(num_days):
     daily_shape = loadshape_values[start_idx:end_idx]
     LoadShapes.append(daily_shape)
     
-# Initializing Load Demand shape
-Ckt_obj.dss.Text.Command(f"New LoadShape.LoadVar")
 
-# Initializing Storage Shapes
-for i in range(len(StationsInfo)):
-    shape_name = "StorageShape"+str(StationsInfo[i]['no'])
-    Ckt_obj.dss.Text.Command(f"New LoadShape.{shape_name}")  
 
 
 #------------------------------------------------------------------------------------
 ### Define function to simulate attacks and extract time series information
 
 def Powerflow_Timeseries(Ckt_obj, loadshape_day, charging_profiles):
+
+    Ckt_obj = CircuitSetup(DSSfile, StationsInfo)  #creating a DSS object instance
+    # Initializing Load Demand shape
+    Ckt_obj.dss.Text.Command(f"New LoadShape.LoadVar")
+    
+    # Initializing Storage Shapes
+    for i in range(len(StationsInfo)):
+        shape_name = "StorageShape"+str(StationsInfo[i]['no'])
+        Ckt_obj.dss.Text.Command(f"New LoadShape.{shape_name}") 
+         
     # Edit the LoadShape in opendss
     Ckt_obj.dss.Text.Command(f"Edit LoadShape.LoadVar npts={len(loadshape_day)} interval=1 mult=(" + ' '.join(map(str, loadshape_day)) + ")")
     # Assign Load shapes
@@ -145,7 +149,7 @@ NSc = 400 # parameter indicating no.of scenarios for each
 
 # Normal case
 for idx in range(NSc):
-    print(scid)
+    print(scid, flush = True)
     # Edit load shapes (Load and PV) for each scenario
     loadshape_day = random.choice(LoadShapes) # 24 points
     charging_profiles = []
@@ -163,13 +167,13 @@ peak_end = 19
 # Type 1 attack: Peak increase
 
 for idx in range(NSc):
-    print(scid)
+    print(scid, flush = True)
     # Edit load shapes (Load and PV) for each scenario
     loadshape_day = random.choice(LoadShapes) # 24 points
     # Select Storages(s) which are under attack
     num_attacked = random.randint(1, len(StationsInfo)) # no. of PVs under attack
     attacked_stations = random.sample(range(len(StationsInfo)), k=num_attacked) # index of attacked PVs
-    attack_mult = random.uniform(1.5,3)
+    attack_mult = random.uniform(1.01,1.05)
     charging_profiles = []
     for i in range(len(StationsInfo)):
         elem_name = 'ChargeStatn'+str(StationsInfo[i]['no'])
@@ -199,13 +203,13 @@ for idx in range(NSc):
 # Type 2 attack: Time shift and peak increase
 
 for idx in range(NSc):
-    print(scid)
+    print(scid, flush=True)
     # Edit load shapes (Load and PV) for each scenario
     loadshape_day = random.choice(LoadShapes) # 24 points
     # Select Storages(s) which are under attack
     num_attacked = random.randint(1, len(StationsInfo)) # no. of PVs under attack
     attacked_stations = random.sample(range(len(StationsInfo)), k=num_attacked) # index of attacked PVs
-    attack_mult = random.uniform(1.5,3)
+    attack_mult = random.uniform(1.01,1.05)
     time_shift = random.choice(range(1,4)) #time shift duration
     shift_choice = random.choice([0,1]) #time shift direction 0: left(-ve), 1: right(+ve)
     if shift_choice == 0:
@@ -235,13 +239,13 @@ for idx in range(NSc):
 # Type 3 attack: Demand increase and Time shift
 
 for idx in range(NSc):
-    print(scid)
+    print(scid, flush=True)
     # Edit load shapes (Load and PV) for each scenario
     loadshape_day = random.choice(LoadShapes) # 24 points
     # Select Storages(s) which are under attack
     num_attacked = random.randint(1, len(StationsInfo)) # no. of PVs under attack
     attacked_stations = random.sample(range(len(StationsInfo)), k=num_attacked) # index of attacked PVs
-    attack_mult = random.uniform(1.5,3)
+    attack_mult = random.uniform(1.01,1.05)
     time_shift = random.choice(range(1,4)) #time shift duration
     shift_choice = random.choice([0,1]) #time shift direction 0: left(-ve), 1: right(+ve)
     if shift_choice == 0:
@@ -275,14 +279,14 @@ for idx in range(NSc):
 
 # Type 4 attack: Time shift peak and additional peak 
 for idx in range(NSc):
-    print(scid)
+    print(scid, flush=True)
     # Edit load shapes (Load and PV) for each scenario
     loadshape_day = random.choice(LoadShapes) # 24 points
     # Select Storages(s) which are under attack
     num_attacked = random.randint(1, len(StationsInfo)) # no. of PVs under attack
     attacked_stations = random.sample(range(len(StationsInfo)), k=num_attacked) # index of attacked PVs
-    attack_mult = random.uniform(1.5,3)
-    attack_mult2 = random.uniform(1.01,1.05) # attack scaling factor for type 6
+    attack_mult = random.uniform(1.01,1.05)
+    attack_mult2 = random.uniform(1.01,1.02) # attack scaling factor for type 6
     time_shift = random.choice(range(1,4)) #time shift duration
     shift_choice = random.choice([0,1]) #time shift direction 0: left(-ve), 1: right(+ve)
     if shift_choice == 0:

@@ -1,12 +1,12 @@
 # PowerBench
 
-**PowerBench** is a comprehensive benchmark suite for evaluating machine learning methods on resilience tasks in power distribution networks. It includes structured datasets and standardized evaluation scenarios for:
+**PowerBench** is a comprehensive benchmark suite for evaluating machine learning methods on resilience oriented grid-monitoring and security tasks in power distribution networks. It includes structured datasets generated synthetically using distribution network models in OpenDSS and standardized evaluation scenarios for:
 
 - Line Failure Detection
 - Cyberattack Detection
 - State Estimation
 
-Each dataset is organized by task type and IEEE test feeder (34-bus, 123-bus, 8500-node).
+Each dataset is organized by task type and IEEE test feeders (34-bus, 123-bus, 8500-node).
 
 ---
 
@@ -22,16 +22,15 @@ PowerBench/
 │
 ├── Experiments/           # Scripts or model files for evaluating datasets
 ├── README.md              # You are here!
-```
----
+
 
 ## 📊 Dataset Tasks
 
 
 | Task                       | Description                                                                                 |
 |----------------------------|---------------------------------------------------------------------------------------------|
-| **Cyber Attack Detection** | Detect attacks on EVCS, PV, and sensors and also locate compromised devices                 |
-| **Line Failure Detection** | Identify if lines have failed given partial obervability in unbalanced distribution networks|
+| **Cyber Attack Detection** | Detect attacks on EVCS, PV, and sensors and locate compromised devices                      |
+| **Line Failure Detection** | Identify if lines have failed using partial obervability in unbalanced distribution networks|
 | **State Estimation**       | Estimate voltage magnitudes using partial measurements                                      |
 
 ---

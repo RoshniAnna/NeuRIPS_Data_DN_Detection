@@ -17,10 +17,10 @@ timestamp = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
 
 # === SLURM array support ===
 job_indx = int(os.environ.get('SLURM_ARRAY_TASK_ID', 0))  # SLURM provides 0,1,2,...
-total_jobs = 10  # match your SLURM --array=0-9
-NSc = 10000
-NSc_per_type = 2500  # total per attack type
-job_size_per_type = NSc_per_type // total_jobs  # 250 per job
+total_jobs = 4  # match your SLURM --array=0-4
+NSc = 8000
+NSc_per_type = 2000  # total per attack type
+job_size_per_type = NSc_per_type // total_jobs  # 500 per job
 
 print(f"Running SLURM array job {job_indx}: total {job_size_per_type} scenarios per attack type", flush=True)
 

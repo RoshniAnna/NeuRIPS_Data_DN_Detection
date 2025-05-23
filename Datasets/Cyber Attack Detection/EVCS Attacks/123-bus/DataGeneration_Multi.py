@@ -159,9 +159,9 @@ def Powerflow_Timeseries(Ckt_obj, loadshape_day, charging_profiles):
 #------------------------------------------------------------------------------------
 
 ### Scenario generation
-total_scenarios_per_type = 20  # total per type across all jobs
+total_scenarios_per_type = 800  # total per type across all jobs
 scenarios_per_job = total_scenarios_per_type // total_jobs
-batch_size = 5
+batch_size = 200
 batch_count = 0
 Scenarios = []
 scid  = 0
@@ -214,7 +214,7 @@ for idx in range(scenarios_per_job):
     # Select Storages(s) which are under attack
     num_attacked = random.randint(1, len(StationsInfo)) # no. of PVs under attack
     attacked_stations = random.sample(range(len(StationsInfo)), k=num_attacked) # index of attacked PVs
-    attack_mult = random.uniform(5,7)
+    attack_mult = random.uniform(1.01,1.05)
     charging_profiles = []
     for i in range(len(StationsInfo)):
         sindx = StationsInfo[i]['indx']
@@ -258,7 +258,7 @@ for _ in range(scenarios_per_job):
     # Select Storages(s) which are under attack
     num_attacked = random.randint(1, len(StationsInfo)) # no. of PVs under attack
     attacked_stations = random.sample(range(len(StationsInfo)), k=num_attacked) # index of attacked PVs
-    attack_mult = random.uniform(5,7)
+    attack_mult = random.uniform(1.01,1.05)
     time_shift = random.choice(range(1,4)) #time shift duration
     shift_choice = random.choice([0,1]) #time shift direction 0: left(-ve), 1: right(+ve)
     if shift_choice == 0:
@@ -302,7 +302,7 @@ for _ in range(scenarios_per_job):
     # Select Storages(s) which are under attack
     num_attacked = random.randint(1, len(StationsInfo)) # no. of PVs under attack
     attacked_stations = random.sample(range(len(StationsInfo)), k=num_attacked) # index of attacked PVs
-    attack_mult = random.uniform(5,7)
+    attack_mult = random.uniform(1.01,1.05)
     time_shift = random.choice(range(1,4)) #time shift duration
     shift_choice = random.choice([0,1]) #time shift direction 0: left(-ve), 1: right(+ve)
     if shift_choice == 0:
@@ -350,8 +350,8 @@ for _ in range(scenarios_per_job):
     # Select Storages(s) which are under attack
     num_attacked = random.randint(1, len(StationsInfo)) # no. of PVs under attack
     attacked_stations = random.sample(range(len(StationsInfo)), k=num_attacked) # index of attacked PVs
-    attack_mult = random.uniform(5,7)
-    attack_mult2 = random.uniform(1.01,2.5) # attack scaling factor for type 6
+    attack_mult = random.uniform(1.01,1.05)
+    attack_mult2 = random.uniform(1.01,1.02) # attack scaling factor for type 6
     time_shift = random.choice(range(1,4)) #time shift duration
     shift_choice = random.choice([0,1]) #time shift direction 0: left(-ve), 1: right(+ve)
     if shift_choice == 0:

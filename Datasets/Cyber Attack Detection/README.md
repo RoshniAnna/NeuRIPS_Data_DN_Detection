@@ -1,6 +1,11 @@
 # Cyber Attack Detection Dataset
 
-This folder provides codes for dataset generation for detecting cyber-physical attacks in power distribution networks. The datasets include attacks on photovoltaic (PV) systems, electric vehicle charging stations (EVCS), and voltage sensors. These attacks are simulated using OpenDSS.
+This folder contains code for generating datasets aimed at detecting cyber-physical attacks in power distribution networks. The scenarios include simulated attacks on:
+
+- **Photovoltaic (PV) systems**
+- **Electric Vehicle Charging Stations (EVCS)**
+- **Voltage sensors**
+
 
 ---
 
