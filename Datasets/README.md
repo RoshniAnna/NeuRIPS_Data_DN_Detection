@@ -3,7 +3,7 @@
 This folder includes synthetic dataset generation code using OpenDSS to support the development and evaluation of intelligent resilience solutions in power distribution networks. Specifically, it contains code for generating:
 
 - **Line Failure Datasets**: Simulated scenarios of physical line outages under various fault conditions
-- **Cyber-Physical Attack Datasets**: Includes false data injection attacks targeting:
+- **Cyber-Physical Attack Datasets**: Includes attacks targeting:
   - Photovoltaic (PV) systems
   - Electric Vehicle Charging Stations (EVCS)
   - Voltage/current sensors
