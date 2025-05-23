@@ -1,19 +1,44 @@
-# PowerBench Dataset
+# PowerBench
 
-This repository contains datasets for **line failures** and **cyber attacks** in **power distribution networks**, developed for research purposes and suitable for benchmarking anomaly detection or fault localization models.
+**PowerBench** is a comprehensive benchmark suite for evaluating machine learning methods on resilience tasks in power distribution networks. It includes structured datasets and standardized evaluation scenarios for:
 
-## 📂 Contents
+- Line Failure Detection
+- Cyberattack Detection
+- State Estimation
 
-The repository includes:
-- Synthetic datasets simulating **line failures** in distribution networks using OpenDSS
-- Datasets simulating **cyber-physical attacks**, including PV system attacks, EV charging station attacks, and voltage sensor attacks
-- Folder-wise descriptions and associated metadata files
+Each dataset is organized by task type and IEEE test feeder (34-bus, 123-bus, 8500-node).
 
-## 🧠 Motivation
+---
 
-Distribution networks are increasingly exposed to both natural failures (e.g., line faults due to extreme weather) and intentional cyber threats. These datasets aim to support:
-- Development of robust detection and diagnostic tools
-- Facilitate resilience improvement in smart grids
-- Enhance research in outage/anomaly detection, graph learning in power systems
+## 📁 Repository Structure
 
-## 📊 Dataset Structure
+```text
+PowerBench/
+│
+├── Datasets/              # All datasets organized by task
+│   ├── Cyber Attack Detection/
+│   ├── Line Failure Detection/
+│   └── State Estimation/
+│
+├── Experiments/           # Scripts or model files for evaluating datasets
+├── README.md              # You are here!
+
+
+## 📊 Dataset Tasks
+
+
+| Task                       | Description                                                                                 |
+|----------------------------|---------------------------------------------------------------------------------------------|
+| **Cyber Attack Detection** | Detect false data injections on EVCS, PV, and sensors and locate compromised devices        |
+| **Line Failure Detection** | Identify if lines have failed using partial obervability in unbalanced distribution networks|
+| **State Estimation**       | Estimate voltage magnitudes using partial measurements                                      |
+
+---
+
+## 🚀 Usage
+
+To evaluate or benchmark models, refer to the `Experiments/` directory.
+Each dataset folder includes a dedicated `README.md` file containing details about the dataset generation.
+
+
+
