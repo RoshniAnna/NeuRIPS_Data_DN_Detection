@@ -36,7 +36,6 @@ Each network-specific folder (e.g., `34-bus`, `123-bus`, `8500-node`) includes a
 - **`DataGeneration.py`** – Main script to simulate scenarios and generate labeled datasets
 - **`DataGeneration_Multi.py`** – Parallelized or batch scenario generation (if available)
 
-These components work together to produce realistic and reproducible datasets for machine learning tasks related to grid monitoring and security in power distribution systems.
 
 ---
 
