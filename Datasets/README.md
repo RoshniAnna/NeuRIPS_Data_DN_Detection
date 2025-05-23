@@ -15,7 +15,7 @@ This folder includes synthetic dataset generation code using OpenDSS to support 
 
 With the growing deployment of distributed energy resources and digitization of grid infrastructure, distribution networks face increasing exposure to both:
 - **Natural disruptions** such as line failures caused by storms, wildfires, or equipment degradation
-- **Cyber-physical threats** targeting DERs, sensors, and control signals
+- **Cyber-physical threats** targeting DERs, sensors, and control devices
 
 This dataset collection is designed to:
 - Enable the development and benchmarking of robust detection and diagnostic algorithms
