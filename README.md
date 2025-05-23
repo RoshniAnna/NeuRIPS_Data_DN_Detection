@@ -31,7 +31,7 @@ PowerBench/
 | Task                       | Description                                                                                 |
 |----------------------------|---------------------------------------------------------------------------------------------|
 | **Cyber Attack Detection** | Detect false data injections on EVCS, PV, and sensors and locate compromised devices        |
-| **Line Failure Detection** | Identify if lines have failed using partial obervability in unbalanced distribution networks|
+| **Line Failure Detection** | Identify if lines have failed given partial obervability in unbalanced distribution networks|
 | **State Estimation**       | Estimate voltage magnitudes using partial measurements                                      |
 
 ---
